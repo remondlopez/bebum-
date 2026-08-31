@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1B1411">
+  <title>Bebum Snack Bar Control</title>
+  <link rel="stylesheet" href="Bar Control App.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="top-r">
+      <div class="brand">
+        <span class="brand-a">BEBUM/TIKTOK</span>
+        <span class="brand-b">Snack Bar</span>
+      </div>
+      <div class="daysel">
+        <input type="date" id="date" class="date" aria-label="Trading day being counted" />
+        <button class="daysel-c" id="todayBtn">Trading day</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" data-tab="store" role="tab" aria-selected="false">Store</button>
+      <button class="tab is-on" data-tab="count" role="tab" aria-selected="true">Bar</button>
+      <button class="tab" data-tab="cash" role="tab" aria-selected="false">Cash</button>
+      <button class="tab" data-tab="report" role="tab" aria-selected="false">Report</button>
+      <button class="tab" data-tab="month" role="tab" aria-selected="false">Month</button>
+    </nav>
+    <div class="ident">
+      <button id="meChip" class="ident-w">Sign in</button>
+      <button id="theme" class="ident-r">Night</button>
+      <button id="refresh" class="ident-r" aria-label="Refresh from the other phones">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="pane-store" class="pane is-hidden">
+      <div class="find">
+        <input id="wSearch" class="find-i" type="text" placeholder="Find a drink" autocomplete="off" />
+        <div class="segs">
+          <button class="wseg is-on" data-wfilter="all">All 31</button>
+          <button class="wseg" data-wfilter="moving">With stock</button>
+        </div>
+      </div>
+      <div id="whSum"></div>
+      <div id="whList"></div>
+    </section>
+
+    <section id="pane-count" class="pane">
+      <div id="deliv"></div>
+      <div class="prog">
+        <div class="prog-t"><span id="progL">Nothing counted yet</span><span id="progN"></span></div>
+        <div class="prog-b"><i id="progI"></i></div>
+      </div>
+      <div class="find">
+        <input id="search" class="find-i" type="text" placeholder="Find a drink" autocomplete="off" />
+        <div class="segs">
+          <button class="seg is-on" data-filter="moving">Moving</button>
+          <button class="seg" data-filter="all">All 31</button>
+        </div>
+      </div>
+      <div id="cards"></div>
+    </section>
+
+    <section id="pane-cash" class="pane is-hidden">
+      <div class="panel">
+        <h2 class="panel-h">What came in</h2>
+        <div class="big">
+          <span class="big-l">Sales for the day</span>
+          <output id="cashSales" class="big-n">0</output>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 class="panel-h">What left the till</h2>
+        <p class="panel-p">Debt is money still owed to you, so it comes off the cash but not off the profit.</p>
+        <div class="fields" id="cashFields">
+          <label class="f"><span>Recovered</span><input id="c-rec" class="f-i numin" type="text" inputmode="numeric" placeholder="0" /></label>
+          <label class="f"><span>Damaged</span><input id="c-dam" class="f-i numin" type="text" inputmode="numeric" placeholder="0" /></label>
+          <div class="f f--wide"><span>Expenses</span><div id="expenseRows"></div><button type="button" class="cash-add" id="addExpense">Add expense</button></div>
+          <label class="f"><span>Shortage</span><input id="c-sho" class="f-i numin" type="text" inputmode="numeric" placeholder="0" /></label>
+          <label class="f"><span>Debt</span><div class="cash-step"><button type="button" class="cash-step-b" data-debt-step="-500" aria-label="Reduce debt by 500">-</button><input id="c-deb" class="f-i numin" type="text" inputmode="numeric" placeholder="0" /><button type="button" class="cash-step-b" data-debt-step="500" aria-label="Increase debt by 500">+</button></div></label>
+          <div class="f f--wide"><span>Who owes</span><div id="debtorRows"></div><button type="button" class="cash-add" id="addDebtor">Add person</button></div>
+        </div>
+      </div>
+      <div class="panel panel--amber">
+        <div class="big">
+          <span class="big-l">Cash to hand over</span>
+          <output id="cashBal" class="big-n big-n--a">0</output>
+        </div>
+      </div>
+    </section>
+
+    <section id="pane-report" class="pane is-hidden">
+      <div id="flags"></div>
+      <div class="panel">
+        <h2 class="panel-h">The night</h2>
+        <div class="stats">
+          <div class="stat"><span>Sales</span><b id="r-sales">0</b></div>
+          <div class="stat"><span>Cost of drinks</span><b id="r-cost">0</b></div>
+          <div class="stat stat--good"><span>Gross profit</span><b id="r-gp">0</b></div>
+          <div class="stat stat--good"><span>Net profit</span><b id="r-np">0</b></div>
+          <div class="stat"><span>Bottles sold</span><b id="r-qty">0</b></div>
+          <div class="stat"><span>Cash to hand over</span><b id="r-bal">0</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 class="panel-h">Sold that day</h2>
+        <div id="rlist"></div>
+      </div>
+      <div class="panel">
+        <h2 class="panel-h">Signed off</h2>
+        <p class="panel-p">The day is marked closed when all three have signed. Authorized users can still edit their figures, and every change is recorded.</p>
+        <div id="signs"></div>
+      </div>
+      <div class="panel">
+        <h2 class="panel-h">Prices</h2>
+        <p class="panel-p">Margin is per bottle, after the crate price is divided by what a crate holds.</p>
+        <div id="newBrand"></div>
+        <div id="pbody"></div>
+      </div>
+      <div class="panel panel--quiet">
+        <h2 class="panel-h">What changed</h2>
+        <div id="log"></div>
+      </div>
+      <button class="wipe" id="wipe">Clear this day</button>
+    </section>
+    <section id="pane-month" class="pane is-hidden">
+      <div class="period-switch" role="tablist" aria-label="Report period">
+        <button class="period-b" data-period="week" role="tab" aria-selected="false">Week</button>
+        <button class="period-b is-on" data-period="month" role="tab" aria-selected="true">Month</button>
+      </div>
+      <div class="mnav">
+        <button class="mnav-b" id="mPrev" aria-label="Previous report period">&lsaquo;</button>
+        <span class="mnav-l" id="mLabel">&nbsp;</span>
+        <button class="mnav-b" id="mNext" aria-label="Next report period">&rsaquo;</button>
+      </div>
+      <div id="mBody"><p class="empty">Loading the month…</p></div>
+    </section>
+  </main>
+
+  <footer class="till">
+    <div class="till-r">
+      <div class="till-l"><span>Sales for the day</span><em id="tillSub">0 bottles</em></div>
+      <span class="till-n" id="till">0</span>
+    </div>
+  </footer>
+
+  <div id="gate" class="gate is-hidden">
+    <div class="gate-in">
+      <div class="brand brand--big">
+        <span class="brand-a">Bebum</span>
+        <span class="brand-b">Snack Bar</span>
+      </div>
+      <h2 class="gate-h">Sign in to Bebum</h2>
+      <p class="gate-p">Use the email and password assigned to you. Your account controls which figures you can read, write, and edit.</p>
+      <input id="authEmail" class="gate-name" type="email" placeholder="Email address" autocomplete="username" />
+      <input id="authPassword" class="gate-name" type="password" placeholder="Password" autocomplete="current-password" />
+      <button class="gate-r" id="authSubmit"><b>Sign in</b><span>Access the control app</span></button>
+      <p class="gate-n" id="authMsg">Ask the manager to create your account and assign your role.</p>
+      <button class="gate-r is-hidden" id="authSignout"><b>Sign out</b><span>End this session on this device</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="Bar Control App.js" defer></script>
+</body>
+</html>
