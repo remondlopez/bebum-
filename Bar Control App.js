@@ -44,6 +44,140 @@
     get(k,sh){ try{ const raw=localStorage.getItem(localPrefix+pre(sh)+k); return raw===null?null:JSON.parse(raw); }catch(_){ return null; } },
     set(k,v,sh){ try{ localStorage.setItem(localPrefix+pre(sh)+k,JSON.stringify(v)); }catch(_){} }
   };
+  let language=local.get('language')==='fr'?'fr':'en';
+  const FR={
+    'Trading day':'Journée de vente','Store':'Entrepôt','Bar':'Bar','Cash':'Caisse','Report':'Rapport','Month':'Mois',
+    'Sign in':'Connexion','Night':'Nuit','Day':'Jour','Refresh':'Actualiser','All 31':'Tous les 31',
+    'With stock':'En stock','Moving':'En mouvement','Find a drink':'Rechercher une boisson',
+    'Nothing counted yet':'Aucun comptage pour l’instant','Every drink counted':'Toutes les boissons comptées',
+    'Counted so far':'Compté jusqu’ici','Nothing recorded for this day yet.':'Aucune donnée enregistrée pour cette journée.',
+    'Switch to':'Passez à','to start the count.':'pour commencer le comptage.','See the 22 August example':'Voir l’exemple du 22 août',
+    'No drink matches':'Aucune boisson ne correspond à','Opening':'Ouverture','Received':'Reçu','Received ✓':'Reçu ✓',
+    'a crate':'par caisse','to account for':'à comptabiliser','Opening carried from last night’s closing count.':'Stock d’ouverture reporté depuis le comptage de clôture d’hier soir.',
+    'Left on the shelf':'Restant en rayon','One fewer':'Un de moins','One more':'Un de plus',
+    'More sold than you had. Check the opening figure or the count.':'Plus de ventes que de stock disponible. Vérifiez le stock d’ouverture ou le comptage.',
+    'sold':'vendues','bottles':'bouteilles','bottle':'bouteille','Not counted yet':'Pas encore compté','Counted':'Compté','All':'Tout',
+    'Capital in stock':'Valeur du stock','What the warehouse is holding right now, valued at your buying prices.':'Valeur actuelle du stock en entrepôt, calculée selon les prix d’achat.',
+    'Crates bought today':'Caisses achetées aujourd’hui','Spent on stock':'Dépenses de stock','Crates in the store':'Caisses en entrepôt',
+    'Store value':'Valeur du stock','brands counted':'marques comptées','not balancing':'écarts de stock','Total tied up in the store':'Valeur totale immobilisée en stock',
+    'not counted':'non compté','balances':'équilibré','crate':'caisse','crates':'caisses','short':'manquant','over':'en surplus',
+    'Opening crates':'Stock initial (caisses)','Bought in':'Achats','Issued to bar':'Envoyé au bar','Counted now':'Stock compté',
+    'Issue to bar':'Envoyer au bar','No warehouse movement recorded for this day.':'Aucun mouvement d’entrepôt enregistré pour cette journée.',
+    'to open the ledger.':'pour ouvrir le registre.','only':'seulement','received in full by':'reçu en totalité par',
+    'rejected by':'refusé par','and returned to store':'et retourné à l’entrepôt','returned to store':'retourné à l’entrepôt',
+    'not yet confirmed by the bar':'pas encore confirmé par le bar','Store updated':'Entrepôt mis à jour',
+    'Arriving from the store':'Livraison en provenance de l’entrepôt','Check each delivery before it becomes bar stock.':'Vérifiez chaque livraison avant son entrée dans le stock du bar.',
+    'pending':'en attente','Expected':'Attendu','Accept':'Accepter','Edit':'Modifier','Reject':'Refuser',
+    'What came in':'Entrées de caisse','Sales for the day':'Ventes du jour','What left the till':'Sorties de caisse',
+    'Debt is money still owed to you, so it comes off the cash but not off the profit.':'Une dette reste due : elle réduit l’encaisse, mais pas le bénéfice.',
+    'Recovered':'Remboursé','Damaged':'Casse','Expenses':'Dépenses','Add expense':'Ajouter une dépense','Shortage':'Manquant',
+    'Debt':'Dette','Who owes':'Débiteur','Add person':'Ajouter une personne','Cash to hand over':'Espèces à remettre',
+    'Amount':'Montant','What for':'Motif','Name':'Nom','The night':'La soirée','Sales':'Ventes','Cost of drinks':'Coût des boissons',
+    'Gross profit':'Marge brute','Net profit':'Bénéfice net','Bottles sold':'Bouteilles vendues','Sold that day':'Ventes du jour',
+    'Total':'Total','No sales recorded yet.':'Aucune vente enregistrée.','Signed off':'Validation',
+    'The day is marked closed when all three have signed. Authorized users can still edit their figures, and every change is recorded.':'La journée est clôturée après les trois signatures. Les utilisateurs autorisés peuvent encore modifier leurs chiffres ; chaque changement est enregistré.',
+    'Margin is per bottle, after the crate price is divided by what a crate holds.':'La marge est calculée par bouteille, après répartition du prix de la caisse.',
+    'What changed':'Historique des modifications','Nothing changed yet today.':'Aucune modification aujourd’hui.','Clear this day':'Effacer cette journée',
+    'Week':'Semaine','This calendar week':'Cette semaine','Revenue':'Chiffre d’affaires','Deductions':'Déductions','Days counted':'Jours comptés',
+    'Daily sales':'Ventes quotidiennes','What earned the money':'Origine des recettes','Banked':'Déposé','Still owed to you':'Encore dû',
+    'No days counted in this calendar week yet.':'Aucun jour comptabilisé cette semaine.','Revenue by day':'Chiffre d’affaires par jour',
+    'Best day':'Meilleure journée','average':'moyenne','across':'sur','day':'jour','days':'jours','Tap a bar to open that day.':'Touchez une barre pour ouvrir cette journée.',
+    'Loading the month…':'Chargement du mois…','Loading the week…':'Chargement de la semaine…','No days counted in':'Aucun jour comptabilisé en',
+    'so far':'à ce jour','Profit uses today’s buying prices for every day of the month. Change a crate price and past months move with it.':'Le bénéfice utilise les prix d’achat actuels pour tout le mois. Modifier un prix de caisse change aussi les mois précédents.',
+    'Find a drink':'Rechercher une boisson','All 31':'Tous les 31','Add a brand':'Ajouter une marque','Drink name':'Nom de la boisson',
+    'Per crate':'Par caisse','Buy /crate':'Achat / caisse','Sell /unit':'Vente / unité','Add to the list':'Ajouter à la liste',
+    'Give the drink a name.':'Saisissez le nom de la boisson.','How many bottles come in a crate?':'Combien de bouteilles dans une caisse ?',
+    'What does one bottle sell for?':'Quel est le prix de vente d’une bouteille ?','is already on the list but archived. Restore it below instead.':'figure déjà dans la liste, mais est archivée. Restaurez-la ci-dessous.',
+    'is already on the list.':'figure déjà dans la liste.','added':'ajoutée','set its buying price below so profit is right':'saisissez son prix d’achat ci-dessous pour calculer correctement le bénéfice',
+    'no buy price':'sans prix d’achat','a bottle':'par bouteille','Archive':'Archiver','Restore':'Restaurer','Delete':'Supprimer',
+    'Delete for good?':'Supprimer définitivement ?','This removes':'Cela supprimera','from the list entirely. Tap again to confirm.':'de la liste. Appuyez encore pour confirmer.',
+    'Checking…':'Vérification…','has figures in':'comporte des données sur','of records.':'journée(s) enregistrée(s).',
+    'Deleting it would change those totals, so archive it instead — it disappears from the working lists but the history still adds up.':'La suppression modifierait ces totaux. Archivez plutôt la marque : elle disparaîtra des listes actives, mais restera dans l’historique.',
+    'Sign in to Bebum':'Connexion à Bebum','Use the email and password assigned to you. Your account controls which figures you can read, write, and edit.':'Utilisez l’adresse e-mail et le mot de passe qui vous ont été attribués. Votre compte détermine les chiffres que vous pouvez consulter et modifier.',
+    'Email address':'Adresse e-mail','Password':'Mot de passe','Access the control app':'Accéder à l’application de gestion',
+    'Forgot password?':'Mot de passe oublié ?','Send a password reset link':'Envoyer un lien de réinitialisation','Back to sign in':'Retour à la connexion',
+    'Return to email and password login':'Revenir à la connexion par e-mail','Ask the manager to create your account and assign your role.':'Demandez au responsable de créer votre compte et de vous attribuer un rôle.',
+    'Sign out':'Se déconnecter','End this session on this device':'Fermer la session sur cet appareil','Choose a new password':'Choisir un nouveau mot de passe',
+    'Enter and confirm a new password for your account.':'Saisissez et confirmez le nouveau mot de passe de votre compte.',
+    'Save new password':'Enregistrer le nouveau mot de passe','Update your account password':'Mettre à jour le mot de passe',
+    'Choose a new password for your account.':'Choisissez un nouveau mot de passe pour votre compte.',
+    'Confirm new password':'Confirmer le nouveau mot de passe','Enter the same new password in both fields.':'Saisissez le même mot de passe dans les deux champs.',
+    'Updating password…':'Mise à jour du mot de passe…','Password updated':'Mot de passe mis à jour','Enter your email address first.':'Saisissez d’abord votre adresse e-mail.',
+    'Sending password reset link…':'Envoi du lien de réinitialisation…','If an account exists for that email, a password reset link has been sent.':'Si un compte est associé à cette adresse, un lien de réinitialisation a été envoyé.',
+    'Enter your email and password.':'Saisissez votre adresse e-mail et votre mot de passe.','Signing in…':'Connexion…',
+    'Your account has no valid role. Ask the manager to assign one.':'Aucun rôle valide n’est attribué à votre compte. Demandez au responsable de vous en attribuer un.',
+    'Who are you?':'Qui êtes-vous ?','change':'modifier','Store Keeper':'Magasinier','Bar Attendant':'Employé du bar','Manager':'Responsable',
+    'Signed by':'Signé par','Not signed':'Non signé','Sign':'Signer','Reopen this day':'Rouvrir cette journée',
+    'Closed':'Clôturée','All three have signed. Authorized users can still edit their figures; changes are recorded below.':'Les trois signatures sont présentes. Les utilisateurs autorisés peuvent encore modifier leurs chiffres ; les changements sont consignés ci-dessous.',
+    'No drink matches':'Aucune boisson ne correspond à','All':'Tout','Open':'Ouvert','today':'aujourd’hui','yesterday':'hier',
+    'Nothing recorded for this day yet.':'Aucune donnée enregistrée pour cette journée.','The day':'La journée',
+    'January':'janvier','February':'février','March':'mars','April':'avril','May':'mai','June':'juin','July':'juillet','August':'août',
+    'September':'septembre','October':'octobre','November':'novembre','December':'décembre',
+    'Monday':'lundi','Tuesday':'mardi','Wednesday':'mercredi','Thursday':'jeudi','Friday':'vendredi','Saturday':'samedi','Sunday':'dimanche',
+    'Mon':'lun.','Tue':'mar.','Wed':'mer.','Thu':'jeu.','Fri':'ven.','Sat':'sam.','Sun':'dim.',
+    'Prices':'Prix','archived':'archivée','Restore it below instead.':'Restaurez-la ci-dessous.','All three have signed.':'Les trois ont signé.',
+    'Trading day being counted':'Journée de vente comptabilisée','Language':'Langue','Refresh from the other phones':'Actualiser depuis les autres téléphones',
+    'Report period':'Période du rapport','Previous report period':'Période précédente','Next report period':'Période suivante',
+    'crates held':'caisses en stock','crates issued by':'caisses envoyées par','crates accepted by the bar':'caisses acceptées par le bar',
+    'Closing count':'Comptage de clôture','One fewer':'Un de moins','One more':'Un de plus',
+    'Sold':'Vendu','The count is higher than what was available.':'Le comptage dépasse le stock disponible.',
+    'Opened at':'Stock d’ouverture :','but last night closed at':'contre stock de clôture hier soir :','unaccounted for.':'non comptabilisé.',
+    'Sells at':'Prix de vente :','but costs':', coût :','Losing':'Perte de','on each one — check the crate size.':'par bouteille ; vérifiez le contenu de la caisse.',
+    'Margin reads':'Marge de','%, far above every other drink. The crate price or size looks wrong.':' %, bien au-dessus des autres boissons. Vérifiez le prix ou le nombre d’unités par caisse.',
+    'No buy price':'Aucun prix d’achat','archived':'archivée','in use':'active','back in use':'réactivée','deleted':'supprimée',
+    'Problem:':'Problème :','tap to dismiss':'touchez pour fermer','storage':'stockage','Supabase is unavailable. Changes are saved only on this device until it reconnects.':'Supabase est indisponible. Les modifications sont enregistrées uniquement sur cet appareil jusqu’au rétablissement de la connexion.'
+  };
+  const translationPairs=Object.entries(FR).sort((a,b)=>b[0].length-a[0].length);
+  const sourceText=new WeakMap(), sourceAttrs=new WeakMap();
+  const translateText=text=>translationPairs.reduce((result,[en,fr])=>result.split(en).join(fr),text);
+  function translateNode(node,reset){
+    if(node.nodeType!==Node.TEXT_NODE) return;
+    if(!sourceText.has(node)||reset) sourceText.set(node,node.nodeValue);
+    const excluded=node.parentElement&&node.parentElement.closest('.drink-n,.wh-n,.prow-n');
+    node.nodeValue=language==='fr'&&!excluded?translateText(sourceText.get(node)):sourceText.get(node);
+  }
+  function translateAttributes(element,reset){
+    if(element.nodeType!==Node.ELEMENT_NODE) return;
+    let saved=sourceAttrs.get(element);
+    if(!saved){ saved={}; sourceAttrs.set(element,saved); }
+    ['placeholder','aria-label','title'].forEach(name=>{
+      if(!element.hasAttribute(name)) return;
+      if(saved[name]===undefined||reset) saved[name]=element.getAttribute(name);
+      element.setAttribute(name,language==='fr'?translateText(saved[name]):saved[name]);
+    });
+  }
+  function translateTree(root,reset){
+    if(root.nodeType===Node.TEXT_NODE){ translateNode(root,reset); return; }
+    if(root.nodeType!==Node.ELEMENT_NODE&&root!==document) return;
+    if(root.nodeType===Node.ELEMENT_NODE) translateAttributes(root,reset);
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    while(walker.nextNode()) translateNode(walker.currentNode,reset);
+    if(root.querySelectorAll) root.querySelectorAll('*').forEach(el=>translateAttributes(el,reset));
+  }
+  const translationObserver=new MutationObserver(records=>{
+    translationObserver.disconnect();
+    records.forEach(record=>{
+      if(record.type==='characterData') translateNode(record.target,true);
+      else if(record.type==='attributes') translateAttributes(record.target,true);
+      else record.addedNodes.forEach(node=>translateTree(node,true));
+    });
+    translationObserver.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title']});
+  });
+  function applyLanguage(){
+    document.documentElement.lang=language;
+    $('#language').value=language;
+    translationObserver.disconnect();
+    translateTree(document.body,false);
+    translationObserver.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title']});
+  }
+  $('#language').addEventListener('change',()=>{
+    language=$('#language').value==='fr'?'fr':'en';
+    local.set('language',language,false);
+    applyLanguage();
+    draw(); dayCaption();
+    if($('#pane-month').classList.contains('is-hidden')===false) loadPeriod();
+  });
+  applyLanguage();
   function cloudFailed(e){
     if(cloudWarning) return;
     cloudWarning=true;
@@ -96,7 +230,8 @@
     if(clean!==t.value){ const p=t.selectionStart; t.value=clean; try{t.setSelectionRange(p-1,p-1);}catch(_){} }
   },true);
 
-  const fmt=n=>{ n=Math.round(n||0); return n.toLocaleString('en-US'); };
+  const locale=()=>language==='fr'?'fr-FR':'en-GB';
+  const fmt=n=>{ n=Math.round(n||0); return n.toLocaleString(language==='fr'?'fr-FR':'en-US'); };
   const num=v=>{ const n=parseFloat(String(v==null?'':v).replace(/[^0-9.\-]/g,'')); return isNaN(n)?0:n; };
   const crates=v=>Math.max(0,Math.floor(num(v)));
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -136,8 +271,8 @@
     return (w.open||0)+(w.buy||0)-issuedTo(n)-(w.close||0);
   }
   const stamp=t=>{ const d=new Date(t);
-    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+' '+
-           d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); };
+      return d.toLocaleDateString(locale(),{day:'2-digit',month:'short'})+' '+
+        d.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'}); };
   function note(what,from,to){
     if(!day||!me) return;
     day.log=day.log||[];
@@ -608,7 +743,7 @@
     firstThursday.setDate(firstThursday.getDate()+3-(firstThursday.getDay()+6)%7);
     return 1+Math.round((d-firstThursday)/604800000);
   }
-  const shortDate=k=>keyDate(k).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const shortDate=k=>keyDate(k).toLocaleDateString(locale(),{day:'numeric',month:'short'});
   async function loadPeriod(){ return reportPeriod==='week'?loadWeek():loadMonth(); }
 
   async function loadMonth(){
@@ -650,7 +785,7 @@
       +stat('Revenue',agg.sales)+stat('Cost of drinks',agg.cost)+stat('Gross profit',agg.gp,' stat--good')
       +stat('Deductions',agg.ded)+stat('Net profit',agg.np,' stat--good')+stat('Bottles sold',agg.qty)
       +'</div><div class="big"><span class="big-l">Days counted</span><output class="big-n">'+traded+'</output></div></div>'
-      +'<div class="panel"><h2 class="panel-h">Daily sales</h2>'+daily.map(x=>{ const label=keyDate(x.dk).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}), sales=x.t?x.t.sales:0;
+      +'<div class="panel"><h2 class="panel-h">Daily sales</h2>'+daily.map(x=>{ const label=keyDate(x.dk).toLocaleDateString(locale(),{weekday:'short',day:'numeric',month:'short'}), sales=x.t?x.t.sales:0;
         return '<button class="period-day" data-d="'+x.dk+'"><span>'+label+'</span><b>'+fmt(sales)+'</b></button>'; }).join('')+'</div>'
       +'<div class="panel"><h2 class="panel-h">What earned the money</h2>'+drinks.map(x=>'<div class="rrow"><span class="rrow-n">'+esc(x.name)+'</span><span class="rrow-q">'+fmt(x.sold)+' sold · '+fmt(x.sales)+'</span><span class="rrow-a">'+fmt(x.profit)+'</span></div>').join('')
       +'<div class="rrow rrow--tot"><span class="rrow-n">Gross profit</span><span class="rrow-q">'+fmt(agg.qty)+' bottles</span><span class="rrow-a">'+fmt(agg.gp)+'</span></div></div>'
@@ -954,6 +1089,22 @@
   function openGate(){
     $('#gate').classList.remove('is-hidden');
     $('#authSignout').classList.toggle('is-hidden',!me);
+    renderAuthMode();
+  }
+  let authMode=new URLSearchParams(location.hash.slice(1)).get('type')==='recovery'?'recovery':'signin';
+  function renderAuthMode(){
+    const recovery=authMode==='recovery';
+    $('#authEmail').classList.toggle('is-hidden',recovery);
+    $('#authConfirm').classList.toggle('is-hidden',!recovery);
+    $('#authForgot').classList.toggle('is-hidden',recovery);
+    $('#authBack').classList.toggle('is-hidden',!recovery);
+    $('#authSubmit').innerHTML=recovery
+      ?'<b>Save new password</b><span>Update your account password</span>'
+      :'<b>Sign in</b><span>Access the control app</span>';
+    $('.gate-h').textContent=recovery?'Choose a new password':'Sign in to Bebum';
+    $('.gate-p').textContent=recovery
+      ?'Enter and confirm a new password for your account.'
+      :'Use the email and password assigned to you. Your account controls which figures you can read, write, and edit.';
   }
   function setAuthenticatedUser(user){
     const role=user&&user.user_metadata&&user.user_metadata.role;
@@ -963,8 +1114,18 @@
     return true;
   }
   $('#authSubmit').addEventListener('click',async()=>{
-    const email=$('#authEmail').value.trim(), password=$('#authPassword').value;
     const msg=$('#authMsg');
+    if(authMode==='recovery'){
+      const password=$('#authPassword').value;
+      if(!password||password!==$('#authConfirm').value){ msg.textContent='Enter the same new password in both fields.'; return; }
+      msg.textContent='Updating password...';
+      const {error}=await supabase.auth.updateUser({password});
+      if(error){ msg.textContent=error.message; return; }
+      $('#authPassword').value=''; $('#authConfirm').value='';
+      authMode='signin'; $('#gate').classList.add('is-hidden'); draw();
+      return;
+    }
+    const email=$('#authEmail').value.trim(), password=$('#authPassword').value;
     if(!email||!password){ msg.textContent='Enter your email and password.'; return; }
     msg.textContent='Signing in...';
     const {data,error}=await supabase.auth.signInWithPassword({email,password});
@@ -977,6 +1138,18 @@
     $('#authPassword').value=''; $('#gate').classList.add('is-hidden'); draw();
   });
   $('#authPassword').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#authSubmit').click(); });
+  $('#authConfirm').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#authSubmit').click(); });
+  $('#authForgot').addEventListener('click',async()=>{
+    const email=$('#authEmail').value.trim(), msg=$('#authMsg');
+    if(!email){ msg.textContent='Enter your email address first.'; return; }
+    msg.textContent='Sending password reset link...';
+    const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+    msg.textContent=error?error.message:'If an account exists for that email, a password reset link has been sent.';
+  });
+  $('#authBack').addEventListener('click',()=>{
+    authMode='signin'; $('#authPassword').value=''; $('#authConfirm').value='';
+    $('#authMsg').textContent='Enter your email and password.'; renderAuthMode();
+  });
   $('#authSignout').addEventListener('click',async()=>{ await supabase.auth.signOut(); });
   $('#meChip').addEventListener('click',openGate);
   $('#todayBtn').addEventListener('click',()=>{
@@ -1039,7 +1212,7 @@
   function dayCaption(){
     const [y,m,dd]=dateKey.split('-').map(Number);
     const d=new Date(y,m-1,dd);
-    const nice=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    const nice=d.toLocaleDateString(locale(),{weekday:'short',day:'numeric',month:'short'});
     const t=iso(new Date());
     $('#todayBtn').textContent = dateKey===t ? nice+' \u00b7 today'
       : dateKey===yesterday() ? nice+' \u00b7 yesterday \u00b7 back to today'
@@ -1062,10 +1235,17 @@
     const start=iso(new Date());
     $('#date').value=start;
     await loadDay(start);
-    supabase.auth.onAuthStateChange((_event,session)=>{
-      if(session&&setAuthenticatedUser(session.user)){ $('#gate').classList.add('is-hidden'); draw(); }
+    supabase.auth.onAuthStateChange((event,session)=>{
+      if(event==='PASSWORD_RECOVERY'){
+        authMode='recovery'; openGate(); $('#authMsg').textContent='Choose a new password for your account.'; return;
+      }
+      if(session&&setAuthenticatedUser(session.user)){
+        if(authMode==='recovery'){ openGate(); return; }
+        $('#gate').classList.add('is-hidden'); draw();
+      }
       else { me=null; store.set('me',null); openGate(); draw(); }
     });
+    if(authMode==='recovery') openGate();
     if(!me) openGate();
     setInterval(refresh,15000);
   })();

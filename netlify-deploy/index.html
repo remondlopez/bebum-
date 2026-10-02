@@ -29,6 +29,10 @@
     </nav>
     <div class="ident">
       <button id="meChip" class="ident-w">Sign in</button>
+      <select id="language" class="ident-r" aria-label="Language">
+        <option value="en" aria-label="English">🇬🇧</option>
+        <option value="fr" aria-label="Français">🇫🇷</option>
+      </select>
       <button id="theme" class="ident-r">Night</button>
       <button id="refresh" class="ident-r" aria-label="Refresh from the other phones">Refresh</button>
     </div>
@@ -156,7 +160,10 @@
       <p class="gate-p">Use the email and password assigned to you. Your account controls which figures you can read, write, and edit.</p>
       <input id="authEmail" class="gate-name" type="email" placeholder="Email address" autocomplete="username" />
       <input id="authPassword" class="gate-name" type="password" placeholder="Password" autocomplete="current-password" />
+      <input id="authConfirm" class="gate-name is-hidden" type="password" placeholder="Confirm new password" autocomplete="new-password" />
       <button class="gate-r" id="authSubmit"><b>Sign in</b><span>Access the control app</span></button>
+      <button class="gate-r" id="authForgot"><b>Forgot password?</b><span>Send a password reset link</span></button>
+      <button class="gate-r is-hidden" id="authBack"><b>Back to sign in</b><span>Return to email and password login</span></button>
       <p class="gate-n" id="authMsg">Ask the manager to create your account and assign your role.</p>
       <button class="gate-r is-hidden" id="authSignout"><b>Sign out</b><span>End this session on this device</span></button>
     </div>
